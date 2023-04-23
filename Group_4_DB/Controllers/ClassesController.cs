@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Group_4_DB.Data;
 using Group_4_DB.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Group_4_DB.Controllers
 {
@@ -15,11 +16,17 @@ namespace Group_4_DB.Controllers
     public class ClassesController : ControllerBase
     {
         private readonly academic_settingsContext _context;
+        private readonly JWAuthenticationManager JWAuthenticationManager;
 
-        public ClassesController(academic_settingsContext context)
+        public ClassesController(JWAuthenticationManager jWAuthenticationManager)
+        {
+            this.JWAuthenticationManager = jWAuthenticationManager;
+        }
+
+        /*public ClassesController(academic_settingsContext context)
         {
             _context = context;
-        }
+        }*/
 
         // GET: api/Classes
         [HttpGet]
@@ -109,7 +116,7 @@ namespace Group_4_DB.Controllers
 
             return CreatedAtAction("GetClasses", new { id = classes.ClassId }, classes);
         }
-
+        [Authorize]
         // DELETE: api/Classes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteClasses(string id)
@@ -129,7 +136,24 @@ namespace Group_4_DB.Controllers
 
             return NoContent();
         }
+        [AllowAnonymous]
+        [HttpPost("Authorize")]
+        public IActionResult AuthUser([FromBody] User usr )
+        {
 
+            var token = JWAuthenticationManager.Authenticate(usr.username, usr.password);
+            if (token == null)
+            {
+                return Unauthorized();
+            }
+            return Ok(token);
+        }
+
+        public class User
+        {
+            public string username { get; set;}
+            public string password { get; set;}
+        }
         private bool ClassesExists(string id)
         {
             return (_context.Classes?.Any(e => e.ClassId == id)).GetValueOrDefault();
