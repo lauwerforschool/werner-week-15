@@ -15,6 +15,7 @@ namespace Group_4_DB.Controllers
     [ApiController]
     public class ClassesController : ControllerBase
     {
+        
         private readonly academic_settingsContext _context;
 
         public ClassesController(academic_settingsContext context)
@@ -22,6 +23,7 @@ namespace Group_4_DB.Controllers
             _context = context;
         }
 
+        [Authorize]
         // GET: api/Classes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Classes>>> GetClasses()
@@ -82,6 +84,7 @@ namespace Group_4_DB.Controllers
             return NoContent();
         }
 
+        [Authorize]
         // POST: api/Classes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]

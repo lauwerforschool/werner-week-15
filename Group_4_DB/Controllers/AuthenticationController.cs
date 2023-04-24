@@ -31,7 +31,7 @@ namespace Group_4_DB.Controllers
             {
                 return Unauthorized();
             }
-            return Ok(token);
+            return Ok(new { Token = token, Message = "Success"});
         }
 
         [Authorize]
@@ -46,39 +46,5 @@ namespace Group_4_DB.Controllers
     {
         public string username { get; set; }
         public string password { get; set; }
-
-
-        /*
-        // GET: api/<AuthenticationController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<AuthenticationController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<AuthenticationController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<AuthenticationController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<AuthenticationController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }*/
     }
 }

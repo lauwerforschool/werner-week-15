@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Group_4_DB.Data;
 using Group_4_DB.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Group_4_DB.Controllers
 {
@@ -21,6 +22,7 @@ namespace Group_4_DB.Controllers
             _context = context;
         }
 
+        [Authorize]
         // GET: api/Instructors
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Instructors>>> GetInstructors()
