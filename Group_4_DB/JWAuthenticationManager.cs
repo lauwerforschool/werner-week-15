@@ -1,7 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Authorization;
 using System.Text;
 
 namespace Group_4_DB
